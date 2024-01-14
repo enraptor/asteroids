@@ -4,6 +4,11 @@ Another asteroids clone.  Used primarily to learn Godot and inspired by https://
 
 ![](images/screenshot1.png)
 
-Assets by Kenney
-Sounds by Kenney
-Music by Incompetech
+## Credits
+
+Art by [Kenney](https://www.kenney.nl/)
+
+Sounds by [Kenney](https://www.kenney.nl/)
+
+Music by [Incompetech](https://incompetech.com/)
+
