@@ -1,6 +1,6 @@
 # Asteroids
 
-Another asteroids clone.  Used primarily to learn Godot and inspired by https://github.com/quill18 series on youtube.
+Another asteroids clone.  Used primarily to learn Godot and inspired by [Quill18's Godot tutorials on YouTube](https://www.youtube.com/@quill18creates ).
 
 ![](images/screenshot1.png)
 
