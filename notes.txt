@@ -1,0 +1,12 @@
+TODO:
+	
+Shields
+- uses energy when held down.
+- energy builds back up over time
+
+Pickups
+- Invulnerability
+- Energy
+- Damage boost
+
+

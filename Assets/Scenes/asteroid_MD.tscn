@@ -1,0 +1,30 @@
+[gd_scene load_steps=7 format=3 uid="uid://bni2e70ca2dhw"]
+
+[ext_resource type="Script" path="res://Assets/Scripts/Asteroid.gd" id="1_hi1hd"]
+[ext_resource type="PackedScene" uid="uid://dybob2ckn3sae" path="res://Assets/Scenes/explosion.tscn" id="2_c0b6r"]
+[ext_resource type="Texture2D" uid="uid://byhp4aanolbtt" path="res://Assets/Textures/meteor_large.png" id="2_xtvg3"]
+[ext_resource type="PackedScene" uid="uid://dqayntcgnbcll" path="res://Assets/Scenes/asteroid_SM.tscn" id="3_we2xv"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_c4kn8"]
+friction = 0.0
+bounce = 0.3
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_wyye7"]
+radius = 21.0238
+
+[node name="Asteroid" type="RigidBody2D" groups=["Asteroids"]]
+collision_layer = 2
+collision_mask = 3
+physics_material_override = SubResource("PhysicsMaterial_c4kn8")
+max_contacts_reported = 2
+contact_monitor = true
+script = ExtResource("1_hi1hd")
+explosion = ExtResource("2_c0b6r")
+debris = ExtResource("3_we2xv")
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_xtvg3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_wyye7")

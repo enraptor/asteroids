@@ -1,0 +1,106 @@
+[gd_scene load_steps=14 format=3 uid="uid://dgymflw82x63d"]
+
+[ext_resource type="Script" path="res://Assets/Scripts/Player.gd" id="1_ueyy2"]
+[ext_resource type="PackedScene" uid="uid://bmrti8175hl8y" path="res://Assets/Scenes/projectile.tscn" id="2_a4wuh"]
+[ext_resource type="Texture2D" uid="uid://ygi4nuhmbgec" path="res://Assets/Textures/effect_yellow.png" id="3_6yifk"]
+[ext_resource type="PackedScene" uid="uid://cufvo7krax774" path="res://Assets/Scenes/Weapons/DoubleLaser.tscn" id="3_imjfc"]
+[ext_resource type="PackedScene" uid="uid://lep0d30rjq7v" path="res://Assets/Scenes/Weapons/Laser.tscn" id="3_tr1m2"]
+[ext_resource type="Texture2D" uid="uid://fs23q6b3xy08" path="res://Assets/Textures/ship_L.png" id="4_wix1d"]
+[ext_resource type="AudioStream" uid="uid://cjmcxvawsay3r" path="res://Assets/Audio/Effects/thrusterFire_000.ogg" id="5_kjjjj"]
+[ext_resource type="AudioStream" uid="uid://ctxkblgkfsi5y" path="res://Assets/Audio/Effects/laserSmall_003.ogg" id="6_hay4c"]
+[ext_resource type="AudioStream" uid="uid://c1tyi4nvwul84" path="res://Assets/Audio/Effects/impactMetal_003.ogg" id="7_8iwbf"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_mlig7"]
+radius = 16.1245
+
+[sub_resource type="Animation" id="Animation_fntb8"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_yyp3f"]
+resource_name = "invulnerable"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(0.247059, 0.466667, 1, 1), Color(1, 1, 1, 0), Color(0.246609, 0.468349, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"end_invulnerability"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_d0qqw"]
+_data = {
+"RESET": SubResource("Animation_fntb8"),
+"invulnerable": SubResource("Animation_yyp3f")
+}
+
+[node name="Player" type="RigidBody2D"]
+max_contacts_reported = 1
+contact_monitor = true
+script = ExtResource("1_ueyy2")
+bullet = ExtResource("2_a4wuh")
+weapon_scenes = Array[PackedScene]([ExtResource("3_tr1m2"), ExtResource("3_imjfc")])
+
+[node name="Thrust" type="Sprite2D" parent="."]
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("3_6yifk")
+offset = Vector2(0, 64)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("4_wix1d")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_mlig7")
+
+[node name="Turret" type="Marker2D" parent="."]
+position = Vector2(0, -16)
+gizmo_extents = 19.0
+
+[node name="ThrustSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_kjjjj")
+
+[node name="ShootSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_hay4c")
+
+[node name="HitSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_8iwbf")
+
+[node name="InvulnerabilityTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_d0qqw")
+}
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

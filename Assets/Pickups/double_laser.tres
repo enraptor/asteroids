@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="PickupResource" load_steps=4 format=3 uid="uid://b45xvjuy01r0h"]
+
+[ext_resource type="AudioStream" uid="uid://uskt12wdmq6i" path="res://Assets/Audio/Effects/confirmation_004.ogg" id="1_1uywv"]
+[ext_resource type="Script" path="res://Assets/Scripts/pickup_resource.gd" id="1_xhayn"]
+[ext_resource type="Texture2D" uid="uid://dan3k3608gmm8" path="res://Assets/Textures/turret.png" id="3_e5tf6"]
+
+[resource]
+script = ExtResource("1_xhayn")
+timeout = 3
+texture = ExtResource("3_e5tf6")
+pickup_sound = ExtResource("1_1uywv")
+minimum_level = 1
+effect = "doublelaser"

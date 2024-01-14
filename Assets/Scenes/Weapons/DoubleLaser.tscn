@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://cufvo7krax774"]
+
+[ext_resource type="Script" path="res://Assets/Scripts/Weapon.gd" id="1_70h03"]
+[ext_resource type="Texture2D" uid="uid://fs23q6b3xy08" path="res://Assets/Textures/ship_L.png" id="1_tsh71"]
+[ext_resource type="Texture2D" uid="uid://b4mdh1fpq5ty0" path="res://Assets/Textures/ship_A.png" id="2_04x26"]
+[ext_resource type="PackedScene" uid="uid://bmrti8175hl8y" path="res://Assets/Scenes/projectile.tscn" id="2_or32t"]
+
+[node name="DoubleLaser" type="Node2D"]
+script = ExtResource("1_70h03")
+projectile_scene = ExtResource("2_or32t")
+
+[node name="ShipTemplate" type="Sprite2D" parent="."]
+visible = false
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("1_tsh71")
+
+[node name="Turret_L" type="Marker2D" parent="." groups=["Turret"]]
+position = Vector2(-12, 8)
+
+[node name="Sprite2D2" type="Sprite2D" parent="Turret_L"]
+modulate = Color(0.470588, 0.470588, 0.470588, 1)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("2_04x26")
+
+[node name="Turret_R" type="Marker2D" parent="." groups=["Turret"]]
+position = Vector2(12, 8)
+
+[node name="Sprite2D2" type="Sprite2D" parent="Turret_R"]
+modulate = Color(0.470076, 0.470076, 0.470076, 1)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("2_04x26")

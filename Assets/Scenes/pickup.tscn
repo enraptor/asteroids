@@ -1,0 +1,73 @@
+[gd_scene load_steps=9 format=3 uid="uid://lbxyuthjbntr"]
+
+[ext_resource type="Script" path="res://Assets/Scripts/pickup.gd" id="1_7x278"]
+[ext_resource type="Texture2D" uid="uid://b70ktsenwcwyg" path="res://Assets/Textures/Particles/circle_01.png" id="2_t5ndn"]
+[ext_resource type="Texture2D" uid="uid://dv44ghx3fjok2" path="res://Assets/Textures/icon_exclamationLarge.png" id="3_8mu0x"]
+[ext_resource type="AudioStream" uid="uid://dp7weyhunh8o3" path="res://Assets/Audio/Effects/forceField_000.ogg" id="3_muvxg"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_q0a2j"]
+radius = 24.0
+
+[sub_resource type="Animation" id="Animation_0kqjw"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_eqnjp"]
+resource_name = "pulse"
+length = 0.5
+loop_mode = 1
+step = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2a8fw"]
+_data = {
+"RESET": SubResource("Animation_0kqjw"),
+"pulse": SubResource("Animation_eqnjp")
+}
+
+[node name="pickup" type="Area2D"]
+script = ExtResource("1_7x278")
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("2_t5ndn")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("3_8mu0x")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_q0a2j")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_2a8fw")
+}
+autoplay = "pulse"
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_muvxg")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

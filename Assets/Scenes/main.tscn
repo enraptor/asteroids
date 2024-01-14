@@ -1,0 +1,188 @@
+[gd_scene load_steps=9 format=3 uid="uid://c6uyuih00ebsv"]
+
+[ext_resource type="Script" path="res://Assets/Scenes/main.gd" id="1_r4qu0"]
+[ext_resource type="Texture2D" uid="uid://djru7ikg7mq17" path="res://Assets/Textures/space.jpeg" id="3_kcexb"]
+[ext_resource type="Resource" uid="uid://b1aigggvl3sfc" path="res://Assets/Pickups/invulnerability.tres" id="3_vae2e"]
+[ext_resource type="Resource" uid="uid://dkq7ftfbm124e" path="res://Assets/Pickups/score.tres" id="4_k71f7"]
+[ext_resource type="Resource" uid="uid://b45xvjuy01r0h" path="res://Assets/Pickups/double_laser.tres" id="5_56ghf"]
+[ext_resource type="Resource" uid="uid://b4k8jfyf6462e" path="res://Assets/Pickups/extralife.tres" id="5_l2lkd"]
+[ext_resource type="FontFile" uid="uid://dcn2620dmohgr" path="res://Assets/Fonts/kenvector_future.ttf" id="5_w8kx7"]
+[ext_resource type="AudioStream" uid="uid://lovne4skfisw" path="res://Assets/Audio/Music/In a Heartbeat.mp3" id="6_dbr8i"]
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_r4qu0")
+drop_rate = 10
+max_drops = 3
+drops = Array[Resource("res://Assets/Scripts/pickup_resource.gd")]([ExtResource("5_l2lkd"), ExtResource("3_vae2e"), ExtResource("4_k71f7"), ExtResource("5_56ghf")])
+
+[node name="Background" type="Sprite2D" parent="."]
+position = Vector2(396, 300)
+texture = ExtResource("3_kcexb")
+
+[node name="HUD" type="MarginContainer" parent="."]
+anchors_preset = 10
+anchor_right = 1.0
+offset_right = 800.0
+offset_bottom = 64.0
+grow_horizontal = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="HUD"]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_right = 8
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HUD/MarginContainer"]
+layout_mode = 2
+
+[node name="Health" type="HBoxContainer" parent="HUD/MarginContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Label" type="Label" parent="HUD/MarginContainer/HBoxContainer/Health"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.211765, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0.607843, 0.156863, 0.345098, 1)
+theme_override_fonts/font = ExtResource("5_w8kx7")
+text = "Ships"
+
+[node name="Value" type="Label" parent="HUD/MarginContainer/HBoxContainer/Health"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.211765, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0.607843, 0.156863, 0.345098, 1)
+theme_override_fonts/font = ExtResource("5_w8kx7")
+text = "0"
+
+[node name="CenterContainer" type="CenterContainer" parent="HUD/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Asteroids" type="HBoxContainer" parent="HUD/MarginContainer/HBoxContainer/CenterContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="HUD/MarginContainer/HBoxContainer/CenterContainer/Asteroids"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.596078, 0.309804, 0.243137, 1)
+theme_override_colors/font_shadow_color = Color(0.607843, 0.156863, 0.345098, 1)
+theme_override_fonts/font = ExtResource("5_w8kx7")
+text = "Asteroids"
+
+[node name="Value" type="Label" parent="HUD/MarginContainer/HBoxContainer/CenterContainer/Asteroids"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.597079, 0.309712, 0.242034, 1)
+theme_override_colors/font_shadow_color = Color(0.607843, 0.156863, 0.345098, 1)
+theme_override_fonts/font = ExtResource("5_w8kx7")
+text = "0"
+
+[node name="Score" type="HBoxContainer" parent="HUD/MarginContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Label" type="Label" parent="HUD/MarginContainer/HBoxContainer/Score"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.894118, 0.917647, 0.435294, 1)
+theme_override_colors/font_shadow_color = Color(0.607843, 0.156863, 0.345098, 1)
+theme_override_fonts/font = ExtResource("5_w8kx7")
+text = "Score"
+
+[node name="Value" type="Label" parent="HUD/MarginContainer/HBoxContainer/Score"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.894118, 0.917647, 0.435294, 1)
+theme_override_colors/font_shadow_color = Color(0.607843, 0.156863, 0.345098, 1)
+theme_override_fonts/font = ExtResource("5_w8kx7")
+text = "0"
+
+[node name="GameOver" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 404.0
+offset_top = 286.0
+offset_right = 404.0
+offset_bottom = 286.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GameOver"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -258.0
+offset_top = -86.0
+offset_right = 258.0
+offset_bottom = 86.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="GameOver/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_w8kx7")
+theme_override_font_sizes/font_size = 72
+text = "Game Over"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HighScore" type="Label" parent="GameOver/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.886275, 0.8, 0.2, 1)
+theme_override_colors/font_shadow_color = Color(0.607843, 0.156863, 0.345098, 1)
+theme_override_fonts/font = ExtResource("5_w8kx7")
+theme_override_font_sizes/font_size = 42
+text = "New High Score!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LevelCleared" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 404.0
+offset_top = 286.0
+offset_right = 404.0
+offset_bottom = 286.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+
+[node name="Label" type="Label" parent="LevelCleared"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -188.0
+offset_top = -51.0
+offset_right = 203.0
+offset_bottom = 51.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_shadow_color = Color(0.607843, 0.156863, 0.345098, 1)
+theme_override_fonts/font = ExtResource("5_w8kx7")
+theme_override_font_sizes/font_size = 48
+text = "Level Cleared!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RespawnTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_dbr8i")
+autoplay = true
+
+[connection signal="timeout" from="RespawnTimer" to="." method="_on_respawn_timer_timeout"]
